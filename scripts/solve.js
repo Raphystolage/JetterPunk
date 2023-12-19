@@ -1,39 +1,67 @@
+/**
+ * Different types of quiz
+ * @enum {string} Key: Name on JetPunk, value: class name of the div on the quiz page
+ */
+const QuizTypes = {
+    Text: "text-game-page",
+    Picture: "photo-game-page",
+    Click: "click-game-page",
+    Map: "map-game-page",
+    MultipleChoice: "mc-game-page",
+    Tile: "tile-game-page"
+}
+
+/**
+ * Get quiz type (see QuizTypes enum)
+ * @returns {string|null} Type name
+ */
 function getQuizType() {
     var elem = document.body.firstChild;
     while(elem.tagName != "DIV") {
         elem = elem.nextSibling;
     }
-    return elem.classList[1];
+
+    for(var quizType in QuizTypes) {
+        if(QuizTypes[quizType] == elem.classList[1]) {
+            console.info("Quiz type : " + quizType);
+            return quizType;
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Get answers in js code and enter it in the page
+ * @param {string} quizType Quiz type value from QuizTypes dictionary
+ * @return {void}
+ */
+function solve(quizType) {
+    var solution = document.body.firstChild;
+    while(solution.tagName != "SCRIPT") {
+        solution = solution.nextSibling;
+    }
+
+    var answerString = solution.textContent;
+    var answerJSON = JSON.parse(answerString.substring(answerString.indexOf("{"), answerString.lastIndexOf("}") + 1)).data.quiz.answers;
+    console.debug(answerJSON);
+
+    for(var answer of answerJSON) {
+        const text_input = document.getElementById("txt-answer-box");
+        text_input.value = answer.display;
+        text_input.dispatchEvent(new Event('input'));
+        console.debug(answer);
+    }
+
+    console.info("Quizz solved !");
 }
 
 var title = document.getElementsByTagName("h1")[0];
 title.textContent += `: ${getQuizType()}`;
 
-var solution = document.body.firstChild;
-while(solution.tagName != "SCRIPT") {
-    solution = solution.nextSibling;
-}
-
-var answerString = solution.textContent;
-
-var answerJSON = JSON.parse(answerString.substring(answerString.indexOf("{"), answerString.lastIndexOf("}") + 1));
-
-answerJSON = answerJSON.data.quiz.answers;
-console.log(answerJSON);
-
 const solve_button = document.createElement("button");
 solve_button.textContent = "Solve";
-solve_button.onclick = solve;
-
-async function solve() {
-    for(answer of answerJSON) {
-        const text_input = document.getElementById("txt-answer-box");
-        text_input.value = answer.display;
-        text_input.dispatchEvent(new Event('input'));
-        console.info(answer);
-    }
-    console.info("Quizz solved !");
-}
+solve_button.onclick = () => solve(getQuizType());
 
 const text_input = document.getElementById("txt-answer-box");
 text_input.insertAdjacentElement("afterend", solve_button);
