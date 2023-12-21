@@ -47,8 +47,13 @@ function solve(quizType) {
     console.debug(answerJSON);
 
     for(var answer of answerJSON) {
+        answer = answer.display;
+        if(answer.indexOf("{") > 0) {
+            answer = answer.substring(answer.indexOf("{") +1, answer.lastIndexOf("}"));
+        }
+
         const text_input = document.getElementById("txt-answer-box");
-        text_input.value = answer.display;
+        text_input.value = answer;
         text_input.dispatchEvent(new Event('input'));
         console.debug(answer);
     }
@@ -56,12 +61,23 @@ function solve(quizType) {
     console.info("Quizz solved !");
 }
 
+/**
+ * Place solve button on quiz page
+ * @param {string} quizType Quiz type value from QuizTypes dictionary
+ * @return {void}
+ */
+function placeSolveButton(quizType) {
+    const solve_button = document.createElement("button");
+    solve_button.textContent = "Solve";
+    solve_button.onclick = () => solve(getQuizType());
+    const text_input = document.getElementById("txt-answer-box");
+    text_input.insertAdjacentElement("afterend", solve_button);
+}
+
 var title = document.getElementsByTagName("h1")[0];
-title.textContent += `: ${getQuizType()}`;
+var quizType = getQuizType();
+title.textContent += `: ${quizType}`;
 
-const solve_button = document.createElement("button");
-solve_button.textContent = "Solve";
-solve_button.onclick = () => solve(getQuizType());
-
-const text_input = document.getElementById("txt-answer-box");
-text_input.insertAdjacentElement("afterend", solve_button);
+if(quizType == 'Text') {
+    placeSolveButton(quizType);
+}
