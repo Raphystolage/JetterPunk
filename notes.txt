@@ -1,9 +1,0 @@
-raccourci clavier pour lancer le script
-
-quiz types :
-    text-game-page
-    photo-game-page
-    click-game-page
-    map-game-page
-    mc-game-page
-    tile-game-page
