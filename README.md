@@ -11,3 +11,7 @@ Chrome extension to automate JetPunk quiz resolution
 ## Details
 
 - Language : English
+
+## Legal Disclaimer
+
+This extension is developed independently and is neither endorsed nor approved by the owners of the website JetPunk. All trademarks and logos are the property of their respective owners.
