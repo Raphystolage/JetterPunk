@@ -63,7 +63,76 @@ function getQuizType() {
  * @return {string} Simplest match
  */
 function simplestMatch(regex) {
-    return regex;
+    match = "";
+    var i = 0;
+    while(i < regex.length) {
+        switch(regex[i]) {
+            case '(':
+                var j = i + 1;
+                var otherGroup = 0;
+                while(regex[j] != ')' || otherGroup != 0) {
+                    if(regex[j] == '(') {
+                        otherGroup++;
+                    } else if(regex[j] == ')'){
+                        otherGroup--;
+                    }
+                    j++
+                }
+                match += simplestMatch(regex.substring(i + 1, j));
+                i += j - i;
+                break;
+            case '[':
+                var j = i + 1;
+                while(regex[j] != ']') {
+                    j++;
+                }
+                match += regex[i+1];
+                i += j - i;
+                break;
+            case '?':
+            case '+':
+            case '*':
+            case '^':
+            case '$':
+                break;
+            case '\\':
+                switch(regex[i+1]) {
+                    case 's':
+                        match += ' ';
+                        break;
+                    case 'S':
+                        match += 'a';
+                        break;
+                    case 'd':
+                        match += '1';
+                        break;
+                    case 'D':
+                        match += 'a';
+                        break;
+                    case 'w':
+                        match += 'a';
+                        break;
+                    case 'W':
+                        match += ' ';
+                        break;
+                    default:
+                        match += regex[i+1];
+                    
+                }
+                i++;
+                break;
+            case '.':
+                match += 'a';
+                break;
+            case '|':
+                return match;
+            default:
+                match += regex[i];
+        }
+        i++;
+        
+    }
+    return match;
 }
 
 
@@ -132,6 +201,4 @@ var title = document.getElementsByTagName("h1")[0];
 var quizType = getQuizType();
 title.textContent += `: ${quizType}`;
 
-if(quizType == 'Text') {
-    placeSolveButton(quizType);
-}
+placeSolveButton(quizType);
