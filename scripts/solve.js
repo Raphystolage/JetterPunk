@@ -193,7 +193,16 @@ function fetchAnswers(quizType) {
 function solve(quizType) {
 
     var answers = fetchAnswers(quizType);
-    
+
+    // In case yellow box is not on the first cell at the beggining each answer is entered twice
+    if(QUIZDATA.data.quiz.yellowBox) {
+        var length = answers.length;
+        for(var i = 0; i < length; i++) {
+            answers.push(answers[i]);
+        }
+    }
+
+    // Insert answers on quiz page
     for(var answer of answers) {
         const textInput = document.getElementById("txt-answer-box");
         textInput.value = answer;
