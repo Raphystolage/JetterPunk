@@ -2,15 +2,26 @@
 
 Chrome extension to automate JetPunk quiz resolution
 
+
 ## Releases
+
 ### 1.0
 
-- Text quiz solve integration
-- Test pop-up
+- Implementation of quiz solve feature within the page (only text quizzes)
+- Add test pop-up
+
+### 1.1
+
+- Upgrade of text quiz solve feature in order to make any text quiz solvable :
+    - Generate answers from regular expression typeins
+    - Handle yellow-box property
+- Add picture quiz solve feature
+
 
 ## Details
 
 - Language : English
+
 
 ## Legal Disclaimer
 
