@@ -27,15 +27,15 @@ const QUIZDATA = fetchQuizData();
 
 /**
  * Different types of quiz
- * @enum {string} Key: Name on JetPunk, value: class name of the div on the quiz page
+ * @enum {string} Key: Name on JetPunk, value: value of "whatkind" property on var _page
  */
 const QuizTypes = {
-    Text: "text-game-page",
-    Picture: "photo-game-page",
-    Click: "click-game-page",
-    Map: "map-game-page",
-    MultipleChoice: "mc-game-page",
-    Tile: "tile-game-page"
+    Text: "v",
+    Picture: "p",
+    Click: "c",
+    Map: "m",
+    MultipleChoice: "mc",
+    Tile: "tc"
 };
 
 
