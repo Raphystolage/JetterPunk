@@ -14,7 +14,6 @@ function fetchQuizData() {
     // This script should look like "var _page = { ... }", we need to get the _page value
     var dataString = pageScripts[i].textContent;
     var dataJSON = JSON.parse(dataString.substring(dataString.indexOf("{"), dataString.lastIndexOf("}") + 1));
-    console.debug("Quiz data : " + dataJSON);
 
     return dataJSON;
 }
@@ -217,7 +216,6 @@ function solve(quizType) {
                 const textInput = document.getElementById("txt-answer-box");
                 textInput.value = answer;
                 textInput.dispatchEvent(new Event("input"));
-                console.debug("Answer entered: " + answer);
             }
 
             break;
@@ -257,7 +255,6 @@ function solve(quizType) {
                 var hints = document.getElementsByClassName("hint-holder");
                 var i = 0;
                 while(i < hints.length && hints[i].style.display != "block" && hints[i].style.display != "") {
-                    console.log(hints[i].style.display);
                     i++;
                 }
                 var hintId = hints[i].id.substring(5);
