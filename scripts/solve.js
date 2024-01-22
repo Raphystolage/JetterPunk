@@ -129,6 +129,7 @@ function simplestMatch(regex) {
                 }
                 i++;
                 break;
+
             case '.':
                 match += 'a';
                 break;
@@ -154,23 +155,36 @@ function simplestMatch(regex) {
  * @return {object} List of answers
  */
 function fetchAnswers(quizType) {
+
     var answers = [];
-    for(var answer of QUIZDATA.data.quiz.answers) {
 
-        // If a Regular Expression is given, the simplest match of this RegEx is entered
-        if("typeins" in answer) {
-            var typeins = answer.typeins.constructor === Array ? answer.typeins[0] : answer.typeins;
-            answers.push(simplestMatch(typeins.val));
-        }
+    switch(quizType) {
+        case "Text":
+        case "Picture":
+            for(var answer of QUIZDATA.data.quiz.answers) {
 
-        // Otherwise, the corresponding answer displayed at the end of the time is entered
-        else if("display" in answer) {
-            var display = answer.display;
-            if(display.indexOf("{") >= 0) {
-                display = display.substring(display.indexOf("{") + 1, display.lastIndexOf("}"));
+                // If a Regular Expression is given, the simplest match of this RegEx is entered
+                if("typeins" in answer) {
+                    var typeins = answer.typeins.constructor === Array ? answer.typeins[0] : answer.typeins;
+                    answers.push(simplestMatch(typeins.val));
+                }
+
+                // Otherwise, the corresponding answer displayed at the end of the time is entered
+                else if("display" in answer) {
+                    var display = answer.display;
+                    if(display.indexOf("{") >= 0) {
+                        display = display.substring(display.indexOf("{") + 1, display.lastIndexOf("}"));
+                    }
+                    answers.push(display);
+                }
+
             }
-            answers.push(display);
-        }
+            break;
+        
+        case "Map":
+        case "Click":
+            answers = [...QUIZDATA.data.quiz.answers]
+            break;
 
     }
 
@@ -187,20 +201,78 @@ function solve(quizType) {
 
     var answers = fetchAnswers(quizType);
 
-    // In case yellow box is not on the first cell at the beggining each answer is entered twice
-    if(QUIZDATA.data.quiz.yellowBox) {
-        var length = answers.length;
-        for(var i = 0; i < length; i++) {
-            answers.push(answers[i]);
-        }
-    }
+    switch(quizType) {
+        case "Text":
+        case "Picture":
 
-    // Insert answers on quiz page
-    for(var answer of answers) {
-        const textInput = document.getElementById("txt-answer-box");
-        textInput.value = answer;
-        textInput.dispatchEvent(new Event('input'));
-        console.debug("Answer entered: " + answer);
+            // In case yellow box is not on the first cell at the beggining each answer is entered twice
+            if(QUIZDATA.data.quiz.yellowBox) {
+                for(var i in answers) {
+                    answers.push(answers[i]);
+                }
+            }
+
+            // Insert answers on quiz page
+            for(var answer of answers) {
+                const textInput = document.getElementById("txt-answer-box");
+                textInput.value = answer;
+                textInput.dispatchEvent(new Event("input"));
+                console.debug("Answer entered: " + answer);
+            }
+
+            break;
+        
+        case "Map":
+
+            // Click on each clickable part of the map and click on the corresponding answer
+            for(var answer of answers) {
+                var mapAnswer = document.getElementById(answer.path);
+
+                // Sometimes the answer is a class
+                if(mapAnswer == null) {
+                    mapAnswer = document.getElementsByClassName(answer.path)[0];
+                }
+                
+                var nameAnswer = document.getElementById("map-answer-" + answer.id);
+                for(var className of mapAnswer.classList) {
+                    if(className == "map-clickable") {
+                        mapAnswer.dispatchEvent(new Event("click"));
+                        nameAnswer.click();
+                    }
+                }
+            }
+
+            break;
+
+        case "Click":
+
+            // Set styles on hints
+            for(var answer in answers) {
+                document.getElementsByClassName("move-next")[0].click();
+            }
+
+            for(var answer in answers) {
+
+                // Find which div is displayed and fetch its id
+                var hints = document.getElementsByClassName("hint-holder");
+                var i = 0;
+                while(i < hints.length && hints[i].style.display != "block" && hints[i].style.display != "") {
+                    console.log(hints[i].style.display);
+                    i++;
+                }
+                var hintId = hints[i].id.substring(5);
+
+                // Click on corresponding button
+                var j = 0;
+                while(j < answers.length && answers[j].id != hintId) {
+                    j++;
+                }
+                var rightButton = document.getElementById("bubble-" + answers[j].bubble.id);
+                rightButton.click();
+
+            }
+            break;
+
     }
 
     console.info("Quizz solved !");
@@ -216,19 +288,28 @@ function placeSolveButton(quizType) {
 
     // Create solve button using JetPunk UI style
     var solveButton = document.createElement("button");
+    solveButton.id = "solve-button";
     solveButton.classList.add("blue");
     solveButton.style.marginLeft = "10px";
+    solveButton.style.height = "35px";
     solveButton.textContent = "Solve";
-    solveButton.onclick = () => solve(quizType);
+    solveButton.onclick = () => {
+        solve(quizType);
+        solveButton.style.display = "none";
+    };
 
     // Place solve button next to the answer input on the page
-    var answerInput;
-    if(quizType == 'Text' | quizType == 'Picture') {
-        console.log("test");
-        answerInput = document.getElementById("txt-answer-box");
-        answerInput.insertAdjacentElement("afterend", solveButton);
+    switch(quizType) {
+        case "Text":
+        case "Picture":
+            document.getElementById("txt-answer-box").insertAdjacentElement("afterend", solveButton);
+            break;
+
+        case "Map":
+        case "Click":
+            document.getElementById("quiz-controls-table").appendChild(solveButton);
+            break;
     }
-    //answerInput.insertAdjacentElement("afterend", solveButton);
 
 }
 
