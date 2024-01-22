@@ -4,15 +4,15 @@
     "description": "Chrome extension to automate JetPunk quiz resolution",
     "version": "1.1.1",
     "icons": {
-        "128": "images/hello_extensions.png",
-        "48": "images/hello_extensions.png",
-        "32": "images/hello_extensions.png",
-        "16": "images/hello_extensions.png"
+        "128": "images/icon_no_bg.png",
+        "48": "images/icon_no_bg.png",
+        "32": "images/icon_no_bg.png",
+        "16": "images/icon_no_bg.png"
     },
     "author": "Raphystolage",
     "action": {
         "default_popup": "popups/test.html",
-        "default_icon": "images/hello_extensions.png"
+        "default_icon": "images/icon_no_bg.png"
     },
     "content_scripts": [
         {
