@@ -17,6 +17,10 @@ Chrome extension to automate JetPunk quiz resolution
     - Handle yellow-box property
 - Add picture quiz solve feature
 
+### v1.1.1
+
+- Fix error that caused solve button to not appear
+
 
 ## Details
 
