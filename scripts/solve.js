@@ -4,14 +4,15 @@
  */
 function fetchQuizData() {
 
-    // Find the first "script" html tag
-    var dataScript = document.body.firstChild;
-    while(dataScript.tagName != "SCRIPT") {
-        dataScript = dataScript.nextSibling;
+    // Find the first script
+    var pageScripts = document.scripts;
+    var i = 0;
+    while(i < pageScripts.length && !pageScripts[i].textContent.includes("var _page")) {
+        i++;
     }
 
-    // This script should contain a JSON variable with page data : "var _page = { ... }"
-    var dataString = dataScript.textContent;
+    // This script should look like "var _page = { ... }", we need to get the _page value
+    var dataString = pageScripts[i].textContent;
     var dataJSON = JSON.parse(dataString.substring(dataString.indexOf("{"), dataString.lastIndexOf("}") + 1));
     console.debug("Quiz data : " + dataJSON);
 
@@ -27,38 +28,30 @@ const QUIZDATA = fetchQuizData();
 
 /**
  * Different types of quiz
- * @enum {string} Key: Name on JetPunk, value: value of "whatkind" property on var _page
+ * @enum {string} Key: Name on JetPunk, value: value of "whatkind" property on QUIZDATA
  */
 const QuizTypes = {
     Text: "v",
     Picture: "p",
-    Click: "c",
     Map: "m",
+    Click: "c",
     MultipleChoice: "mc",
-    Tile: "tc"
+    Tile: "ts"
 };
 
 
 /**
- * Get quiz type (see QuizTypes enum)
+ * Get quiz type from QUIZDATA (see QuizTypes enum)
  * @return {string|null} Type name
  */
 function getQuizType() {
-
-    // Find the first "div" html tag
-    var elem = document.body.firstChild;
-    while(elem.tagName != "DIV") {
-        elem = elem.nextSibling;
-    }
-
-    // This div should have a class specific to the quiz type
+    var whatkind = QUIZDATA.data.quiz.whatkind;
     for(var quizType in QuizTypes) {
-        if(QuizTypes[quizType] == elem.classList[1]) {
+        if(QuizTypes[quizType] == whatkind) {
             console.info("Quiz type : " + quizType);
             return quizType;
         }
     }
-
     return null;
 }
 
@@ -231,6 +224,7 @@ function placeSolveButton(quizType) {
     // Place solve button next to the answer input on the page
     var answerInput;
     if(quizType == 'Text' | quizType == 'Picture') {
+        console.log("test");
         answerInput = document.getElementById("txt-answer-box");
         answerInput.insertAdjacentElement("afterend", solveButton);
     }
