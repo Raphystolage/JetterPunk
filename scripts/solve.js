@@ -186,6 +186,10 @@ function fetchAnswers(quizType) {
             answers = [...QUIZDATA.data.quiz.answers]
             break;
 
+        case "Tile":
+            answers = [...QUIZDATA.data.quiz.questions]
+            break;
+
     }
 
     return answers;
@@ -281,7 +285,24 @@ function solve(quizType) {
 
             // Click finish button
             document.getElementsByClassName("finish-mc")[0].click();
-            
+
+            break;
+
+        case "Tile":
+
+            // Click correct tiles
+            for(var answer of answers) {
+                for(var tile of answer.tiles) {
+                    if(tile.sel) {
+                        correctTile = document.getElementById("tile-" + tile.id);
+                        correctTile.click();
+                    }
+                }
+            }
+
+            // Click finish button
+            document.getElementsByClassName("finish-tile")[0].click();
+
             break;
 
     }
@@ -323,6 +344,10 @@ function placeSolveButton(quizType) {
 
         case "MultipleChoice":
             document.getElementById("mc-quiz-controls").appendChild(solveButton);
+            break;
+            
+            case "Tile":
+            document.getElementById("tile-quiz-controls").appendChild(solveButton);
             break;
     }
 
