@@ -182,6 +182,7 @@ function fetchAnswers(quizType) {
         
         case "Map":
         case "Click":
+        case "MultipleChoice":
             answers = [...QUIZDATA.data.quiz.answers]
             break;
 
@@ -270,6 +271,19 @@ function solve(quizType) {
             }
             break;
 
+        case "MultipleChoice":
+
+            // Click correct choices
+            for(var answer of answers) {
+                correctChoice = document.getElementById("mc-choice-button-" + answer.correct);
+                correctChoice.click();
+            }
+
+            // Click finish button
+            document.getElementsByClassName("finish-mc")[0].click();
+            
+            break;
+
     }
 
     console.info("Quizz solved !");
@@ -305,6 +319,10 @@ function placeSolveButton(quizType) {
         case "Map":
         case "Click":
             document.getElementById("quiz-controls-table").appendChild(solveButton);
+            break;
+
+        case "MultipleChoice":
+            document.getElementById("mc-quiz-controls").appendChild(solveButton);
             break;
     }
 
