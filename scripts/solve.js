@@ -227,24 +227,29 @@ function solve(quizType) {
         
         case "Map":
 
-            // Click on each clickable part of the map and click on the corresponding answer
-            for(var answer of answers) {
-                var mapAnswer = document.getElementById(answer.path);
+            for(var answer in answers) {
 
-                // Sometimes the answer is a class
-                if(mapAnswer == null) {
-                    mapAnswer = document.getElementsByClassName(answer.path)[0];
-                }
-                
-                var nameAnswer = document.getElementById("map-answer-" + answer.id);
-                for(var className of mapAnswer.classList) {
-                    if(className == "map-clickable") {
-                        mapAnswer.dispatchEvent(new Event("click"));
-                        nameAnswer.click();
+                // Fetch selected element
+                var mapAnswer = document.getElementsByClassName("map-highlight")[0];
+
+                var nameAnswer;
+                for(var answer of answers) {
+
+                    // Fetch corresponding table cell
+                    if(answer.path == mapAnswer.id) {
+                        nameAnswer = document.getElementById("map-answer-" + answer.id);
                     }
-                }
-            }
+                    
+                    // Sometimes the answer is a class
+                    for(var className of mapAnswer.classList) {
+                        if(answer.path == className) {
+                            nameAnswer = document.getElementById("map-answer-" + answer.id);
+                        }
+                    }
 
+                }
+                nameAnswer.click();
+            }
             break;
 
         case "Click":
