@@ -300,9 +300,10 @@ function solve(quizType) {
             // Click correct tiles
             for(var answer of answers) {
                 for(var tile of answer.tiles) {
-                    if(tile.sel) {
-                        correctTile = document.getElementById("tile-" + tile.id);
-                        correctTile.click();
+                    var currentTile = document.getElementById("tile-" + tile.id);
+                    var isSelected = currentTile.classList.contains("tile-selected")
+                    if((tile.sel && !isSelected) || (!tile.sel && isSelected)) {
+                        currentTile.click();
                     }
                 }
             }
