@@ -285,7 +285,9 @@ function solve(quizType) {
             // Click correct choices
             for(var answer of answers) {
                 correctChoice = document.getElementById("mc-choice-button-" + answer.correct);
-                correctChoice.click();
+                if(!correctChoice.classList.contains("selected-choice")) {
+                    correctChoice.click();
+                }
             }
 
             // Click finish button
@@ -351,7 +353,7 @@ function placeSolveButton(quizType) {
             document.getElementById("mc-quiz-controls").appendChild(solveButton);
             break;
             
-            case "Tile":
+        case "Tile":
             document.getElementById("tile-quiz-controls").appendChild(solveButton);
             break;
     }
