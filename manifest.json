@@ -16,14 +16,20 @@
     },
     "content_scripts": [
         {
-            "js": ["scripts/solve.js"],
             "matches": [
                 "https://www.jetpunk.com/quizzes/*",
-                "https://www.jetpunk.com/user-quizzes/*/*"
+                "https://www.jetpunk.com/user-quizzes/*"
             ],
-            "exclude_matches": [
-                "https://www.jetpunk.com/user-quizzes/users*",
-                "https://www.jetpunk.com/user-quizzes/*/"
+            "js": [
+                "src/solve.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://www.jetpunk.com/*"
+            ],
+            "js": [
+                "src/main.js"
             ]
         }
     ]
