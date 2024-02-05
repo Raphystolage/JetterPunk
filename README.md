@@ -21,6 +21,10 @@ Chrome extension to automate JetPunk quiz resolution
 
 - Fix error that caused solve button to not appear
 
+### v1.2.0
+
+- Add map, multiple choice, click and tile quiz solve feature in order to make *any quiz* solvable 
+
 
 ## Details
 
