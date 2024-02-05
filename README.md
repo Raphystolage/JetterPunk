@@ -1,4 +1,4 @@
-# JetPunk Extension
+# <img src=./images/icon_no_bg.png width=40 /> JetterPunk <img src=./images/icon_no_bg.png width=40 style="transform: scaleX(-1);" />
 
 Chrome extension to automate JetPunk quiz resolution
 

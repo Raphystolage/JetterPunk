@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "JetPunk Extension",
+    "name": "JetterPunk",
     "description": "Chrome extension to automate JetPunk quiz resolution",
     "version": "1.2.0",
     "icons": {
