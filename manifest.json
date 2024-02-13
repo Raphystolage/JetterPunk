@@ -14,6 +14,13 @@
         "default_popup": "popups/test.html",
         "default_icon": "images/icon_no_bg.png"
     },
+    "permissions": [
+        "storage"
+    ],
+    "background": {
+        "service_worker": "src/service-worker.js",
+        "type": "module"
+    },
     "content_scripts": [
         {
             "matches": [
