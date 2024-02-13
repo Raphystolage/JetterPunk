@@ -1,5 +1,9 @@
-function func() {
-    document.getElementById("p").textContent = "Text";
+function checkCheckboxes() {
+    chrome.storage.local.get("features").then((result) => {
+        for(var feature of result.features) {
+            document.getElementById(feature.name + "-checkbox").checked = feature.isActive;
+        }
+    });
 }
 
-document.getElementById("btn").addEventListener("click", func);
+checkCheckboxes();
