@@ -1,8 +1,8 @@
 export class Feature {
-    constructor(name, pageTypes, service = [], isActive=true) {
+    constructor(name, pageTypes = [], services = [], isActive=true) {
         this.name = name;
         this.pageTypes = pageTypes;
-        this.service = service
+        this.services = services
         this.isActive = isActive;
     }
 }

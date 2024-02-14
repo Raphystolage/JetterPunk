@@ -1,8 +1,7 @@
 import * as utils from "./utils.js";
 
 const FEATURES = [
-    new utils.Feature("solve", ["^/quizzes/[\\w-]*$", "^/user-quizzes/[0-9]+/[\\w-]*$"], ["solveFeature"]),
-    new utils.Feature("test", ["^/quizzes/[\\w-]*$", "^/user-quizzes/[0-9]+/[\\w-]*$"], [], false)
+    new utils.Feature("solve", ["Quiz"], ["solveFeature"])
 ];
 
 const SETTINGS = {
