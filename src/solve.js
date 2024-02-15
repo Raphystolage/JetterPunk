@@ -30,12 +30,12 @@ const QUIZDATA = fetchQuizData();
  * @enum {string} Key: value of "whatkind" property on QUIZDATA, value: name on JetPunk
  */
 const QuizTypes = {
-    v: "Text",
-    p: "Picture",
-    m: "Map",
-    c: "Click",
-    mc: "MultipleChoice",
-    ts: "Tile"
+    "v": "Text",
+    "p": "Picture",
+    "m": "Map",
+    "c": "Click",
+    "mc": "MultipleChoice",
+    "ts": "Tile"
 };
 
 
