@@ -3,31 +3,30 @@
  * @enum {string} Types of pages used by JetterPunk
  */
 const PageTypes = {
-    index: "Index",
-    quiz: "Quiz",
-    other: "Other"
+    "ClassicIndex": new RegExp("^/(fr|de|es|it|nl|pl|pt|fi|en)?/?$"),
+    "SpecialIndex": new RegExp("^/(hr|ar|cz|ee|jp|ru|se|tr|cn|bg|dk|el|hu|no|sr|te|ve)/all/?$"),
+    "Quiz": new RegExp("^/quizzes/[\\w-]*/?$"),
+    "UserQuiz": new RegExp("^/user-quizzes/[0-9]+/[\\w-]*/?$"),
+    "Other": new RegExp("^/.*$")
 };
-
-const indexRegEx = new RegExp("^/$");
-const quizRegEx = new RegExp("^/quizzes/[\\w-]*$");
-const userQuizRegEx = new RegExp("^/user-quizzes/[0-9]+/[\\w-]*$");
 
 
 async function identifyPage() {
     var pathname = window.location.pathname;
     var pagetype;
-    if(indexRegEx.test(pathname)) {
-        pagetype = PageTypes.index;
-    } else if(quizRegEx.test(pathname) || userQuizRegEx.test(pathname)) {
-        pagetype = PageTypes.quiz;
-    } else {
-        pagetype = PageTypes.other;
+    for(var type in PageTypes) {
+        if(PageTypes[type].test(pathname)) {
+            return type;
+        }
     }
-    return pagetype;
 }
 
 async function setup() {
     var pagetype = await identifyPage();
+    var title = document.getElementsByTagName("h1")[0];
+    if(title != undefined) {
+        title.textContent += `: ${pagetype}`;
+    }
     var features = (await chrome.storage.local.get("features")).features;
     for(var feature of features) {
         if(feature.pageTypes.indexOf(pagetype) != -1) {
