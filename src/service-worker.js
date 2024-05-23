@@ -1,8 +1,9 @@
 import * as utils from "./utils.js";
 
-const FEATURES = [
-    new utils.Feature("solve", ["Quiz", "UserQuiz"], ["solveFeature"])
-];
+const FEATURES = {
+    "solve": new utils.Feature("solve", ["Quiz", "UserQuiz"], ["solveFeature"]),
+    "title": new utils.Feature("title", ["ClassicIndex", "SpecialIndex"], ["titleFeature"], false)
+};
 
 const SETTINGS = {
     "language": "en"

@@ -36,6 +36,7 @@
                 "https://www.jetpunk.com/*"
             ],
             "js": [
+                "src/testft.js",
                 "src/main.js"
             ]
         }
