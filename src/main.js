@@ -28,8 +28,9 @@ async function setup() {
         title.textContent += `: ${pagetype}`;
     }
     var features = (await chrome.storage.local.get("features")).features;
-    for(var feature of features) {
-        if(feature.pageTypes.indexOf(pagetype) != -1) {
+    for(var feature in features) {
+        feature = features[feature];
+        if(feature.pageTypes.indexOf(pagetype) != -1 && feature.isActive) {
             console.log(feature);
             for(var service of feature.services) {
                 window[service]();
