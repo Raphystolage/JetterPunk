@@ -11,7 +11,7 @@
     },
     "author": "Raphystolage",
     "action": {
-        "default_popup": "popups/test.html",
+        "default_popup": "popups/popup.html",
         "default_icon": "images/icon_no_bg.png"
     },
     "permissions": [
