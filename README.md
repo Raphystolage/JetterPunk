@@ -1,6 +1,21 @@
 # <img src=./images/icon_no_bg.png width=40 /> JetterPunk <img src=./images/icon_no_bg.png width=40 style="transform: scaleX(-1);" />
 
-Chrome extension to automate JetPunk quiz resolution
+Chrome extension to improve JetPunk user experience
+
+
+## How to install it
+
+### Using .crx
+
+You can install JetterPunk by downloading .crx file available on <a href="TODO"><i>dist</i></a> directory and install it on your browser by dragging and droping it on your browser extensions page. (Developer mode sometimes needs to be activated)
+
+### Using source files
+
+You can download the content of this repository or clone it to install the unpacked extension on your browser extensions page.
+
+### Using Chome Web Store
+
+JetterPunk will become available on Chrome Web Store in a future version...
 
 
 ## Releases
