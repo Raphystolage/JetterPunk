@@ -7,7 +7,7 @@ Chrome extension to improve JetPunk user experience
 
 ### Using .crx
 
-You can install JetterPunk by downloading .crx file available on <a href="TODO"><i>dist</i></a> directory and install it on your browser by dragging and droping it on your browser extensions page. (Developer mode sometimes needs to be activated)
+You can install JetterPunk by downloading .crx file available on <a href="dist"><i>dist</i></a> directory and install it on your browser by dragging and droping it on your browser extensions page. (Developer mode sometimes needs to be activated)
 
 ### Using source files
 
