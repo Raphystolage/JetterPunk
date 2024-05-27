@@ -11,6 +11,10 @@ const PageTypes = {
 };
 
 
+/**
+ * Identify page type using its URL
+ * @return {string} Page type (see PageTypes enum) 
+ */
 async function identifyPage() {
     var pathname = window.location.pathname;
     var pagetype;
@@ -19,8 +23,14 @@ async function identifyPage() {
             return type;
         }
     }
+    return "Other";
 }
 
+
+/**
+ * Add active features elements on current page
+ * @return {void}
+ */
 async function setup() {
     var pagetype = await identifyPage();
     var title = document.getElementsByTagName("h1")[0];

@@ -4,7 +4,7 @@
  */
 function fetchQuizData() {
 
-    // Find the first script
+    // Find the script uncluding answers data
     var pageScripts = document.scripts;
     var i = 0;
     while(i < pageScripts.length && !pageScripts[i].textContent.includes("var _page")) {
