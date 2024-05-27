@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Solve</title>
+        <meta charset="UTF-8"/>
         <link rel="stylesheet" href="./stylesheet.css">
     </head>
     <body id="body">
@@ -9,8 +10,8 @@
                 <img id="icon" src="/images/icon_no_bg.png" alt="jetterpunk_logo" width="60"/>
                 <h1 id="title">JetterPunk</h1>
             </div>
-            <h2>Features</h2>
-            <div class="feature-div">    
+            <div class="subtitle-div"><div class="line"></div><span class="subtitle">Features</span><div class="line"></div></div>
+            <div class="feature-div">
                 <label class="feature-switch">
                     <input id="solve-checkbox" class="feature-checkbox display-none" type="checkbox" />
                     <span></span>
@@ -24,6 +25,19 @@
                 </label>
                 <div>Title</div>
             </div>
+            <div class="subtitle-div"><div class="line"></div><span class="subtitle">Settings</span><div class="line"></div></div>
+            <label for="language-select">Language</label>
+            <select name="language" id="language-select">
+                <option value="en" selected>English</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="it">Italiano</option>
+                <option value="nl">Nederlands</option>
+                <option value="pl">Polski</option>
+                <option value="pt">Português</option>
+                <option value="fi">Suomi</option>
+            </select>
             <div id="footer">
             </div>
         </div>
