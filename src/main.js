@@ -17,7 +17,6 @@ const PageTypes = {
  */
 async function identifyPage() {
     var pathname = window.location.pathname;
-    var pagetype;
     for(var type in PageTypes) {
         if(PageTypes[type].test(pathname)) {
             return type;

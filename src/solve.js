@@ -327,7 +327,7 @@ function placeSolveButton(quizType) {
     solveButton.classList.add("blue");
     solveButton.style.marginLeft = "10px";
     solveButton.style.height = "35px";
-    solveButton.textContent = "Solve";
+    solveButton.textContent = chrome.i18n.getMessage("Solve");
     solveButton.onclick = () => {
         solve(quizType);
         solveButton.style.display = "none";

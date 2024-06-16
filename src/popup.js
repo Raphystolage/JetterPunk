@@ -1,3 +1,11 @@
+// Translate strings
+document.getElementById("subtitle-features").textContent = chrome.i18n.getMessage("Features")
+document.getElementById("subtitle-settings").textContent = chrome.i18n.getMessage("Settings")
+document.getElementById("feature-solve").textContent = chrome.i18n.getMessage("Solve")
+document.getElementById("feature-title").textContent = chrome.i18n.getMessage("Title")
+document.getElementById("setting-test").textContent = chrome.i18n.getMessage("Test")
+
+
 /**
  * Bind check property of popup checkboxes to the matching feature activity
  * @return {void}

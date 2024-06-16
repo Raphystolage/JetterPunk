@@ -90,10 +90,3 @@
 .display-none {
     display: none;
 }
-
-#language-select {
-    font-size: 15px;
-    padding: 5px;
-    border-radius: 20px;
-    margin-left: 4px;
-}
