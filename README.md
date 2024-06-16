@@ -38,12 +38,21 @@ JetterPunk will become available on Chrome Web Store in a future version...
 
 ### v1.2.0
 
-- Add map, multiple choice, click and tile quiz solve feature in order to make *any quiz* solvable 
+- Add map, multiple choice, click and tile quiz solve feature in order to make *any quiz* solvable
+
+### v1.3.0
+
+- Add French language
+- The language of the extension is determined by the browser language setting (English if not supported)
+- Upgrade pop-up to make it usable
+    - Add (de)activation functionality for all features
+    - Add title test feature (add "Test Feature" at the end of the title on JetPunk main page)
+    - Display current language
 
 
 ## Details
 
-- Language : English
+- Languages : English, French
 
 
 ## Legal Disclaimer
