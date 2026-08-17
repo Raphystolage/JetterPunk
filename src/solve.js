@@ -1,28 +1,7 @@
 /**
- * Get quiz data from JavaScript on web page
- * @return {object} Quiz data in JSON format
+ * @constant Quiz data in JSON format from _page variable
  */
-function fetchQuizData() {
-
-    // Find the script uncluding answers data
-    var pageScripts = document.scripts;
-    var i = 0;
-    while(i < pageScripts.length && !pageScripts[i].textContent.includes("var _page")) {
-        i++;
-    }
-
-    // This script should look like "var _page = { ... }", _page value should contain quiz data
-    var dataString = pageScripts[i].textContent;
-    var dataJSON = JSON.parse(dataString.substring(dataString.indexOf("{"), dataString.lastIndexOf("}") + 1));
-
-    return dataJSON;
-}
-
-
-/**
- * @constant Quiz Data in JSON format from _page variable
- */
-const QUIZDATA = fetchQuizData();
+let QUIZDATA;
 
 
 /**
@@ -37,6 +16,30 @@ const QuizTypes = {
     "mc": "MultipleChoice",
     "ts": "Tile"
 };
+
+
+/**
+ * Get quiz data from JavaScript on web page
+ * @return {object} Quiz data in JSON format
+ */
+async function loadQuizData() {
+
+    // Let the page load completely
+    await new Promise(r => setTimeout(r, 100));
+
+    // Find the script containing quiz data
+    var scripts = [].slice.call(document.scripts);
+    filteredScripts = scripts.filter((script) => script.textContent.trim().startsWith("var _page"))
+    if(filteredScripts.length == 0) {
+        console.error("Cannot find script containing quiz data");
+        return;
+    }
+    dataScript = filteredScripts[0]
+
+    // This script should look like "var _page = { ... }", _page value should contain quiz data
+    var dataString = dataScript.textContent;
+    QUIZDATA = JSON.parse(dataString.substring(dataString.indexOf("{"), dataString.lastIndexOf("}") + 1));
+}
 
 
 /**
@@ -361,6 +364,7 @@ function placeSolveButton(quizType) {
  * Add solve feature on quiz page
  * @return {void}
  */
-function solveFeature() {    
+async function solveFeature() {
+    await loadQuizData();
     placeSolveButton(getQuizType());
 }
